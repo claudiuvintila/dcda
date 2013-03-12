@@ -1,2 +1,4 @@
 libraries/*
 resources/tmp/*
+atlassian-ide-plugin.xml
+.idea/*
