@@ -39,7 +39,8 @@ use lithium\action\Dispatcher;
  * @see lithium\net\http\Router
  */
 Dispatcher::applyFilter('run', function($self, $params, $chain) {
-	Environment::set($params['request']);
+//    Environment::set($params['request']);
+    Environment::set('development');
 
 	foreach (array_reverse(Libraries::get()) as $name => $config) {
 		if ($name === 'lithium') {

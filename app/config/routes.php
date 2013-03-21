@@ -48,6 +48,11 @@ Router::connect('/', 'Pages::view');
  */
 Router::connect('/pages/{:args}', 'Pages::view');
 
+
+// custom routes
+Router::connect('/users', 'Users::listUsers');
+
+
 /**
  * Add the testing routes. These routes are only connected in non-production environments, and allow
  * browser-based access to the test suite for running unit and integration tests for the Lithium
