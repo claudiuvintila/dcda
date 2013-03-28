@@ -2,7 +2,7 @@ libraries/*
 resources/tmp/*
 atlassian-ide-plugin.xml
 .idea/*
-app/resources/tmp/
+app/resources/tmp
 .DS_Store
 .settings
 .project
