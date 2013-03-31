@@ -7,3 +7,4 @@ app/resources/tmp
 .settings
 .project
 ._*
+app/config/boostrap/connections.php
