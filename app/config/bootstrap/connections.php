@@ -64,7 +64,7 @@ use lithium\data\Connections;
  	'adapter' => 'MySql',
  	'host' => 'localhost',
  	'login' => 'root',
- 	'password' => 'headware4',
+ 	'password' => '',
  	'database' => 'dcda',
  	'encoding' => 'UTF-8'
  ));
