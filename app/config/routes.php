@@ -51,7 +51,7 @@ Router::connect('/pages/{:args}', 'Pages::view');
 
 // custom routes
 Router::connect('/users', 'Users::listUsers');
-
+Router::connect('/migrate-user', 'Users::migrateUser');
 
 /**
  * Add the testing routes. These routes are only connected in non-production environments, and allow
