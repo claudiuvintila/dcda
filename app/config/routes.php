@@ -51,7 +51,13 @@ Router::connect('/pages/{:args}', 'Pages::view');
 
 // custom routes
 Router::connect('/users', 'Users::listUsers');
+Router::connect('/users2', 'Users::listUsers2');
+Router::connect('/add-user', 'Users::addUsers');
 Router::connect('/migrate-user', 'Users::migrateUser');
+Router::connect('/posts', 'Posts::index');
+Router::connect('/add-post','Posts::addPosts');
+Router::connect('/servers','Servers::index');
+Router::connect('/add-server','Servers::addServers');
 
 /**
  * Add the testing routes. These routes are only connected in non-production environments, and allow

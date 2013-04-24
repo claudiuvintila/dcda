@@ -11,7 +11,7 @@ use lithium\util\String;
 class UsersController extends \lithium\action\Controller
 {
 
-    public function listUsers()
+    public function listUsers2()
     {
 
         $user = array(
@@ -120,5 +120,21 @@ class UsersController extends \lithium\action\Controller
         $this->_render['layout'] = '401';
 
         return array();
+    }
+
+    public function listUsers() {
+        $users = Users::find(
+            'all',
+            array(
+                'conditions' => array(),
+                'limit'      => 50
+            )
+        );
+
+        return array('users' => $users, 'title' => 'Users');
+    }
+
+    public function addUsers() {
+        return array('title' => 'Add Users');
     }
 }
