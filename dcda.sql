@@ -7,7 +7,7 @@
 #
 # Host: 192.168.0.103 (MySQL 5.5.29-0ubuntu0.12.04.1)
 # Database: dcda
-# Generation Time: 2013-04-27 11:47:15 +0000
+# Generation Time: 2013-04-27 13:23:35 +0000
 # ************************************************************
 
 
@@ -58,15 +58,18 @@ CREATE TABLE `servers` (
   `domain_name` varchar(40) DEFAULT NULL,
   `admin_key` varchar(40) DEFAULT NULL,
   `is_server` tinyint(1) NOT NULL DEFAULT '0',
+  `latitude` double DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `servers` WRITE;
 /*!40000 ALTER TABLE `servers` DISABLE KEYS */;
 
-INSERT INTO `servers` (`id`, `ipv4`, `domain_name`, `admin_key`, `is_server`)
+INSERT INTO `servers` (`id`, `ipv4`, `domain_name`, `admin_key`, `is_server`, `latitude`, `longitude`)
 VALUES
-	(1,NULL,'dcda.lan','adminadminadmin',1);
+	(1,NULL,'dcda.lan','adminadminadmin',1,NULL,NULL),
+	(2,'79.114.33.175',NULL,'bogdanbogdan',0,45.73638444,21.24562729);
 
 /*!40000 ALTER TABLE `servers` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -83,18 +86,18 @@ CREATE TABLE `users` (
   `password` varchar(100) DEFAULT NULL,
   `first_name` varchar(20) DEFAULT '',
   `last_name` varchar(20) DEFAULT '',
-  `consumer_key` varchar(40) DEFAULT '',
+  `assigned_here` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `consumer_key`)
+INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `assigned_here`)
 VALUES
-	(7,'claudiu','$2a$10$GkqS3qgKoYlodbVjcVFqA.06Bu9bUP4Rr/M4/FYJym.jbgRgLBk.G','Claudiu','Vintila','5643973650a63e25'),
-	(8,'claudiu1','','Claudiu','Vintila','123451234512345'),
-	(9,'claudiu2','','Claudiu','Vintila','123451234512345');
+	(7,'claudiu','$2a$10$GkqS3qgKoYlodbVjcVFqA.06Bu9bUP4Rr/M4/FYJym.jbgRgLBk.G','Claudiu','Vintila',1),
+	(8,'claudiu1','','Claudiu','Vintila',1),
+	(9,'claudiu2','','Claudiu','Vintila',1);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;

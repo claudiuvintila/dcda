@@ -5,6 +5,7 @@ namespace app\controllers;
 
 use app\models\Users;
 use app\models\Servers;
+use lithium\storage\Session;
 use lithium\template\View;
 use lithium\util\String;
 use lithium\security\Auth;
@@ -18,6 +19,8 @@ class UsersController extends \lithium\action\Controller
         if (!Auth::check('default')) {
             return $this->redirect('Sessions::add');
         }
+
+        $this->willMigrateToServer(Session::read('username'), 45.73638444, 21.24562729);
 
         $user = array(
             'adminKey'    => 'adminadminadmin',
@@ -141,5 +144,11 @@ class UsersController extends \lithium\action\Controller
 
     public function addUsers() {
         return array('title' => 'Add Users');
+    }
+
+    private function willMigrateToServer($user, $lat, $long) {
+        echo '<pre>'; var_dump(array($lat, $long)); echo '</pre>'; die(' var dumped array($lat, $long)');
+
+
     }
 }
