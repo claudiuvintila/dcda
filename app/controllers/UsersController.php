@@ -7,12 +7,17 @@ use app\models\Users;
 use app\models\Servers;
 use lithium\template\View;
 use lithium\util\String;
+use lithium\security\Auth;
+use lithium\security\Password;
 
 class UsersController extends \lithium\action\Controller
 {
 
     public function listUsers2()
     {
+        if (!Auth::check('default')) {
+            return $this->redirect('Sessions::add');
+        }
 
         $user = array(
             'adminKey'    => 'adminadminadmin',

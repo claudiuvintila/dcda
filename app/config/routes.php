@@ -50,6 +50,8 @@ Router::connect('/pages/{:args}', 'Pages::view');
 
 
 // custom routes
+Router::connect('/login', 'Sessions::add');
+Router::connect('/logout', 'Sessions::delete');
 Router::connect('/users', 'Users::listUsers');
 Router::connect('/users2', 'Users::listUsers2');
 Router::connect('/add-user', 'Users::addUsers');
