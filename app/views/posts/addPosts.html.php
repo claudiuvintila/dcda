@@ -16,5 +16,7 @@
     <input name="author" type="text"/>
     <label for="content">Content</label>
     <textarea name="content" type="text"> </textarea>
-    <input type="submit" value="Add Post" name="addPost"/>
+    <br/>
+    <input class="btn" type="submit" value="Add Post" name="addPost"/>
+
 </form>

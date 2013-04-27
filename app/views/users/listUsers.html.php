@@ -8,7 +8,7 @@
  */
 
 echo "<table>";
-echo "<thead><tr><th>Username</th><th>First Name</th><th>Last Name</th><th>Consumer key</th></tr></thead>";
+echo "<thead><tr><th>Username</th><th>First Name</th><th>Last Name</th><th>Assigned here</th></tr></thead>";
 foreach ($users as $user) {
     echo"<tr>";
     echo "<td>$user->username</td><td>$user->first_name</td><td>$user->last_name</td><td>$user->consumer_key</td>";
@@ -17,5 +17,5 @@ foreach ($users as $user) {
 }
 echo "</table>";
 
-echo "<a href='/add-user'>Add User</a>";
+echo "<a class='btn' href='/add-user'>Add User</a>";
 ?>

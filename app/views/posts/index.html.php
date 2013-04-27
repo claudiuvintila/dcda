@@ -18,5 +18,5 @@ foreach ($posts as $post) {
 }
 echo "</table>";
 
-echo "<a href='http://dcda/posts/addPosts'>Add Post</a>";
+echo "<a class='btn' href='http://dcda/posts/addPosts'>Add Post</a>";
 ?>
