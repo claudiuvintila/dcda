@@ -50,6 +50,7 @@ Router::connect('/pages/{:args}', 'Pages::view');
 
 
 // custom routes
+Router::connect('/', 'Users::listUsers');
 Router::connect('/login', 'Sessions::add');
 Router::connect('/logout', 'Sessions::delete');
 Router::connect('/users', 'Users::listUsers');
@@ -60,6 +61,8 @@ Router::connect('/posts', 'Posts::index');
 Router::connect('/add-post','Posts::addPosts');
 Router::connect('/servers','Servers::index');
 Router::connect('/add-server','Servers::addServers');
+Router::connect('/getJson','Posts::getJsonEvents');
+
 
 /**
  * Add the testing routes. These routes are only connected in non-production environments, and allow

@@ -16,9 +16,7 @@ class UsersController extends \lithium\action\Controller
 
     public function listUsers2()
     {
-        if (!Auth::check('default')) {
-            return $this->redirect('Sessions::add');
-        }
+        $this->verifyUserLoggedIn();
 
         $this->willMigrateToServer(Session::read('username'), 45.73638444, 21.24562729);
 
@@ -131,6 +129,7 @@ class UsersController extends \lithium\action\Controller
     }
 
     public function listUsers() {
+        $this->verifyUserLoggedIn();
         $users = Users::find(
             'all',
             array(
@@ -143,6 +142,7 @@ class UsersController extends \lithium\action\Controller
     }
 
     public function addUsers() {
+        $this->verifyUserLoggedIn();
         return array('title' => 'Add Users');
     }
 
@@ -150,5 +150,10 @@ class UsersController extends \lithium\action\Controller
         echo '<pre>'; var_dump(array($lat, $long)); echo '</pre>'; die(' var dumped array($lat, $long)');
 
 
+    }
+    private function verifyUserLoggedIn() {
+        if (!Auth::check('default')) {
+            return $this->redirect('Sessions::add');
+        }
     }
 }
