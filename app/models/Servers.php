@@ -10,5 +10,7 @@ class Servers extends \lithium\data\Model
         'domain_name' => array('type' => 'string', 'default' => null, 'null' => true),
         'admin_key'   => array('type' => 'string', 'default' => null, 'null' => true),
         'is_server'   => array('type' => 'integer', 'default' => 0, 'null' => false),
+        'latitude'    => array('type' => 'double', 'default' => 0.0, 'null' => true),
+        'longitude'   => array('type' => 'double', 'default' => 0.0, 'null' => true),
     );
 }
