@@ -9,7 +9,7 @@
 
 ?>
 
-<form action="<?php echo "http://dcda/posts/"; ?>" method="POST">
+<form action="<?php echo "/add-post"; ?>" method="POST">
     <label for="title">Title</label>
     <input name="title" type="text"/>
     <label for="author">Author</label>

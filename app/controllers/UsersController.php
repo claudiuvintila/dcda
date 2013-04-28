@@ -133,8 +133,7 @@ class UsersController extends \lithium\action\Controller
         $users = Users::find(
             'all',
             array(
-                'conditions' => array(),
-                'limit'      => 50
+                'conditions' => array()
             )
         );
 
@@ -143,6 +142,23 @@ class UsersController extends \lithium\action\Controller
 
     public function addUsers() {
         $this->verifyUserLoggedIn();
+        $postData = $this->request->data;
+        if(isset($postData['addUser'])) {
+
+            // create new user
+            $user               = Users::create();
+            $user->first_name   = $postData['first_name'];
+            $user->last_name    = $postData['last_name'];
+            $user->username     = $postData['username'];
+            $user->password     = $postData['password'];
+            $user->assigned_here = 1;
+            $success = $user->save();
+            if($success == true){
+                return $this->redirect('Users::listUsers');
+            }
+            else echo "Could not save user into database, please try again";
+        }
+
         return array('title' => 'Add Users');
     }
 

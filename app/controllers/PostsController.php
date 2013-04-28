@@ -10,6 +10,8 @@ namespace app\controllers;
 
 use app\models\Posts;
 use lithium\security\Auth;
+use lithium\action\Request;
+use lithium\storage\Session;
 
 class PostsController extends \lithium\action\Controller {
     public function index() {
@@ -24,6 +26,20 @@ class PostsController extends \lithium\action\Controller {
     }
 
     public function addPosts() {
+        //var_dump($this->request->data);
+        $postData = $this->request->data;
+
+        if(isset($postData['addPost'])){
+            $post = Posts::create();
+            $post->date = date('Y-m-d');
+            $post->title = $postData['title'];
+            $post->author = $postData['author'];
+            $post->content = $postData['content'];
+            $success = $post->save();
+
+            return $this->redirect('Posts::index');
+        }
+
         return array('title' => 'Add Posts');
     }
 
@@ -37,7 +53,7 @@ class PostsController extends \lithium\action\Controller {
         );
         $this->_render['layout'] = 'json';
         $json_posts = array();
-        echo "<pre>";
+        //echo "<pre>";
         foreach ($posts as $post){
             $j_post = array('date' => $post->date, 'title' => $post->title, 'author' => $post->author, 'content' => $post->content);
             $json_posts[]=$j_post;

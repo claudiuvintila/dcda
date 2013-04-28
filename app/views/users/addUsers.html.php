@@ -9,11 +9,11 @@
  */
 ?>
 
-<form action="<?php echo "/users"; ?>" method="POST">
+<form action="<?php echo "/add-user"; ?>" method="POST">
     <label for="username">Username</label>
     <input name="username" id="username" type="text"/>
     <label for="password">Password</label>
-    <input name="username" id="password" type="password"/>
+    <input name="password" id="password" type="password"/>
     <label for="first_name">First Name</label>
     <input name="first_name" id="first_name" type="text"/>
     <label for="last_name">Last name</label>

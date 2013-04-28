@@ -86,8 +86,10 @@
             </div><!--/span-->
             <div class="span9">
                 <div class="hero-unit">
-                    <h1><?php if(isset($title)) { echo $title;} ?></h1>
-                    <p>Admin page for managing <?php echo $title; ?></p>
+                    <?php if(isset($title)) :?>
+                        <h1> <?php echo $title; ?></h1>
+                        <p>Admin page for managing <?php echo $title; ?></p>
+                    <?php endif; ?>
                     <!--p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p-->
                 </div>
                 <div class="row-fluid">
@@ -149,7 +151,7 @@
         </div-->
 
         <footer>
-            <p>&copy; Company 2013</p>
+            <p>&copy; Cookies 2013</p>
         </footer>
 
     </div><!--/.fluid-container-->

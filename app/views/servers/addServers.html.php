@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 ?>
-<form action="<?php echo "/servers"; ?>" method="POST">
+<form action="<?php echo "/add-server"; ?>" method="POST">
     <label for="ipv4">IPv4</label>
     <input name="ipv4" id="ipv4" type="text"/>
     <label for="domain_name">Domain Name</label>
