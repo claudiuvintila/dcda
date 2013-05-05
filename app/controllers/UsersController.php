@@ -162,6 +162,52 @@ class UsersController extends \lithium\action\Controller
         return array('title' => 'Add Users');
     }
 
+    public function updateUser() {
+        $this->verifyUserLoggedIn();
+
+        $postData = $this->request->data;
+        $getData = $this->request->query;
+
+        if(isset($getData['user_id'])){
+            $userId = $getData['user_id'];
+            if(isset($postData['update_user'])){
+                $success = Users::update(
+                    //SET
+                    array(
+                        'username' => $postData['username'],
+                        'password' => $postData['password'],
+                        'first_name' => $postData['first_name'],
+                        'last_name' => $postData['last_name']
+                    ),
+                    //WHERE
+                    array('id' => $userId)
+                );
+            } else {
+                $users = Users::find(
+                    'all',
+                    array(
+                        'conditions' => array('id' => $userId)
+                    )
+                );
+
+                return array('users' => $users, 'title' => 'Users update');
+            }
+        }
+        return $this->redirect('Users::listUsers');
+    }
+
+    public function deleteUser() {
+        $this->verifyUserLoggedIn();
+
+        $getData = $this->request->query;
+        if(isset($getData['user_id'])) {
+            $userId = $getData['user_id'];
+
+            Users::remove(array('id' => $userId ));
+        }
+        return $this->redirect('Users::listUsers');
+    }
+
     private function willMigrateToServer($user, $lat, $long) {
         echo '<pre>'; var_dump(array($lat, $long)); echo '</pre>'; die(' var dumped array($lat, $long)');
 

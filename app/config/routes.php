@@ -51,19 +51,30 @@ Router::connect('/pages/{:args}', 'Pages::view');
 
 // custom routes
 Router::connect('/', 'Users::listUsers');
+
+//Auth
 Router::connect('/login', 'Sessions::add');
 Router::connect('/logout', 'Sessions::delete');
+
+//Users
 Router::connect('/users', 'Users::listUsers');
 Router::connect('/users2', 'Users::listUsers2');
 Router::connect('/add-user', 'Users::addUsers');
+Router::connect('/update-user', 'Users::updateUser');
+Router::connect('/delete-user', 'Users::deleteUser');
 Router::connect('/migrate-user', 'Users::migrateUser');
+
+//Posts
 Router::connect('/posts', 'Posts::index');
 Router::connect('/add-post','Posts::addPosts');
 Router::connect('/update-post','Posts::updatePost');
 Router::connect('/delete-post','Posts::deletePost');
+Router::connect('/getJson','Posts::getJsonEvents');
+
+//Servers
 Router::connect('/servers','Servers::index');
 Router::connect('/add-server','Servers::addServers');
-Router::connect('/getJson','Posts::getJsonEvents');
+
 
 
 /**

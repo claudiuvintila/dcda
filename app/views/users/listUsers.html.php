@@ -8,10 +8,15 @@
  */
 
 echo "<table>";
-echo "<thead><tr><th>Username</th><th>First Name</th><th>Last Name</th><th>Assigned here</th></tr></thead>";
+echo "<thead><tr><th>Username</th><th>First Name</th><th>Last Name</th><th>Assigned here</th><th>Update</th><th>Delete</th></tr></thead>";
 foreach ($users as $user) {
     echo"<tr>";
-    echo "<td>$user->username</td><td>$user->first_name</td><td>$user->last_name</td><td>$user->assigned_here</td>";
+    echo "<td>$user->username</td>"
+        ."<td>$user->first_name</td>"
+        ."<td>$user->last_name</td>"
+        ."<td>$user->assigned_here</td>"
+        ."<td><a href='/update-user?user_id=".$user->id."'>Update</a></td>"
+        ."<td><a href='/delete-user?user_id=".$user->id."'>Delete</a></td>";
     echo"</tr>";
 
 }
