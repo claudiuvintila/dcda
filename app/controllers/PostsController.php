@@ -13,23 +13,22 @@ use lithium\security\Auth;
 use lithium\action\Request;
 use lithium\storage\Session;
 
-class PostsController extends \lithium\action\Controller {
-    public function index() {
+class PostsController extends \lithium\action\Controller
+{
+    public function index()
+    {
         $this->verifyUserLoggedIn();
-        $posts = Posts::find(
-            'all',
-            array(
-                'conditions' => array(),
-            )
-        );
+
+        $posts = Posts::all(array('order' => array('date' => 'DESC')));
         return array('posts' => $posts, 'title' => 'Posts');
     }
 
-    public function addPosts() {
-        //var_dump($this->request->data);
+    public function addPosts()
+    {
+        $this->verifyUserLoggedIn();
         $postData = $this->request->data;
 
-        if(isset($postData['addPost'])){
+        if (isset($postData['addPost'])) {
             $post = Posts::create();
             $post->date = date('Y-m-d');
             $post->title = $postData['title'];
@@ -43,7 +42,55 @@ class PostsController extends \lithium\action\Controller {
         return array('title' => 'Add Posts');
     }
 
-    public function getJsonEvents(){
+    public function updatePost()
+    {
+        $this->verifyUserLoggedIn();
+        $getData = $this->request->query;
+        $postData = $this->request->data;
+
+        if (isset($getData['post_id'])){
+            $postId = $getData['post_id'];
+            if (isset($postData['update_post'])) {
+
+                $success = Posts::update(
+                    array(
+                        'title' => $postData['title'],
+                        'author' => $postData['author'],
+                        'content' => $postData['content']
+                    ),
+                    array('id' => $postId)
+                );
+            }
+            else {
+
+                $posts = Posts::find(
+                    'all',
+                    array(
+                        'conditions' => array('id' => $postId),
+                    )
+                );
+
+                return array('post' => $posts, 'title' => 'Posts');
+            }
+        }
+        return $this->redirect('Posts::index');
+
+    }
+
+    public function deletePost() {
+        $this->verifyUserLoggedIn();
+
+        $getData = $this->request->query;
+        if(isset($getData['post_id'])) {
+            $postId = $getData['post_id'];
+
+            Posts::remove(array('id' => $postId ));
+        }
+        return $this->redirect('Posts::index');
+    }
+
+    public function getJsonEvents()
+    {
         $this->verifyUserLoggedIn();
         $posts = Posts::find(
             'all',
@@ -54,14 +101,15 @@ class PostsController extends \lithium\action\Controller {
         $this->_render['layout'] = 'json';
         $json_posts = array();
         //echo "<pre>";
-        foreach ($posts as $post){
+        foreach ($posts as $post) {
             $j_post = array('date' => $post->date, 'title' => $post->title, 'author' => $post->author, 'content' => $post->content);
-            $json_posts[]=$j_post;
+            $json_posts[] = $j_post;
         }
         return array('posts' => json_encode($json_posts), 'title' => 'Posts');
     }
 
-    private function verifyUserLoggedIn(){
+    private function verifyUserLoggedIn()
+    {
         if (!Auth::check('default')) {
             return $this->redirect('Sessions::add');
         }

@@ -59,6 +59,8 @@ Router::connect('/add-user', 'Users::addUsers');
 Router::connect('/migrate-user', 'Users::migrateUser');
 Router::connect('/posts', 'Posts::index');
 Router::connect('/add-post','Posts::addPosts');
+Router::connect('/update-post','Posts::updatePost');
+Router::connect('/delete-post','Posts::deletePost');
 Router::connect('/servers','Servers::index');
 Router::connect('/add-server','Servers::addServers');
 Router::connect('/getJson','Posts::getJsonEvents');
