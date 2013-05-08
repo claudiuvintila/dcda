@@ -78,6 +78,7 @@ class SessionsController extends \lithium\action\Controller {
                     //close connection
                     curl_close($ch);
 
+                    $this->_render['layout'] = 'json';
                     return array('new' => json_encode($newServerArray));
                 }
             }
