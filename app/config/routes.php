@@ -59,6 +59,7 @@ Router::connect('/logout', 'Sessions::delete');
 //Users
 Router::connect('/users', 'Users::listUsers');
 Router::connect('/users2', 'Users::listUsers2');
+Router::connect('/users3', 'Users::listUsers3');
 Router::connect('/add-user', 'Users::addUsers');
 Router::connect('/update-user', 'Users::updateUser');
 Router::connect('/delete-user', 'Users::deleteUser');

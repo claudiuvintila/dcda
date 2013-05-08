@@ -54,6 +54,35 @@ class UsersController extends \lithium\action\Controller
         return array('users' => $result);
     }
 
+    public function listUsers3()
+    {
+        $user = array(
+            'username'  => 'claudiu',
+            'password'  => '12345',
+            'latitude'  => 46.957761,
+            'longitude' => 22.5
+        );
+
+        //open connection
+        $ch = curl_init();
+
+        $url = 'http://dcda.lan/login';
+        //set the url, number of POST vars, POST data
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $user);
+
+        //execute post
+        $result = curl_exec($ch);
+        $result = curl_getinfo($ch);
+
+        //close connection
+        curl_close($ch);
+
+        echo '<pre>'; var_dump($result); echo '</pre>'; die('var dumped $result from 3');
+    }
+
     public function migrateUser()
     {
         $this->_render['layout'] = 'blank';
