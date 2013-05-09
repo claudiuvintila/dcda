@@ -16,14 +16,17 @@ class SessionsController extends \lithium\action\Controller {
         if ($this->request->data && Auth::check('default', $this->request)) {
             Session::write('username', $_POST['username']);
 
-            $_POST['latitude'] = 46.957761;
-            $_POST['longitude'] = 22.5;
+//            $_POST['latitude'] = 46.957761;
+//            $_POST['longitude'] = 22.5;
+            $_POST['latitude'] = 45.73638444;
+            $_POST['longitude'] = 21.24562729;
             if (isset($_POST['latitude']) && isset($_POST['longitude'])) {
                 $newServer = $this->willMigrateToServer($_POST['latitude'], $_POST['longitude']);
 
                 if ($newServer) {
-                    $this->_render['layout'] = 'blank';
+                    $this->_render['layout'] = 'json';
                     $this->_render['template'] = 'mobile';
+                    $this->_render['type'] = 'json';
 
                     $newServerArray = array(
                         'id'          => $newServer->id,
@@ -69,16 +72,16 @@ class SessionsController extends \lithium\action\Controller {
                     //set the url, number of POST vars, POST data
                     curl_setopt($ch, CURLOPT_URL, $url);
                     curl_setopt($ch, CURLOPT_POST, 1);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $migratingUser);
 
                     //execute post
                     $result = curl_exec($ch);
-                    $result = curl_getinfo($ch);
 
                     //close connection
                     curl_close($ch);
+echo '<pre>'; var_dump($result); echo '</pre>'; die(' var dumped $this');
 
-                    $this->_render['layout'] = 'json';
                     return array('new' => json_encode($newServerArray));
                 }
             }

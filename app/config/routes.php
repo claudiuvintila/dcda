@@ -57,6 +57,7 @@ Router::connect('/login', 'Sessions::add');
 Router::connect('/logout', 'Sessions::delete');
 
 //Users
+Router::connect('/home', 'Users::home');
 Router::connect('/users', 'Users::listUsers');
 Router::connect('/users2', 'Users::listUsers2');
 Router::connect('/users3', 'Users::listUsers3');

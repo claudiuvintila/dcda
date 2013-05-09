@@ -1,6 +1,5 @@
 <?php
 
-
 namespace app\controllers;
 
 use app\models\Users;
@@ -13,7 +12,6 @@ use lithium\security\Password;
 
 class UsersController extends \lithium\action\Controller
 {
-
     public function listUsers2()
     {
         $this->verifyUserLoggedIn();
@@ -80,7 +78,10 @@ class UsersController extends \lithium\action\Controller
         //close connection
         curl_close($ch);
 
-        echo '<pre>'; var_dump($result); echo '</pre>'; die('var dumped $result from 3');
+        echo '<pre>';
+        var_dump($result);
+        echo '</pre>';
+        die('var dumped $result from 3');
     }
 
     public function migrateUser()
@@ -88,7 +89,7 @@ class UsersController extends \lithium\action\Controller
         $this->_render['layout'] = 'blank';
         $postData                = $this->request->data;
 
-        if (! (isset($postData['adminKey']) && isset($postData['username'])) ) {
+        if (!(isset($postData['adminKey']) && isset($postData['username']))) {
 
             $this->_render['layout'] = '401';
 
@@ -117,14 +118,10 @@ class UsersController extends \lithium\action\Controller
                     )
                 );
 
-                $bits = String::random(8); // 64 bits
-                $newConsumerKey = bin2hex($bits); // [0-9a-f]+
-
                 if ($users->count() == 1) {
                     // update existing user
                     $user = $users->current();
 
-                    $user->consumer_key = $newConsumerKey;
                     $success            = $user->save();
                 } else {
                     // create new user
@@ -132,18 +129,16 @@ class UsersController extends \lithium\action\Controller
                     $user->first_name   = $postData['firstName'];
                     $user->last_name    = $postData['lastName'];
                     $user->username     = $postData['username'];
-                    $user->consumer_key = $newConsumerKey;
                     $success            = $user->save();
                 }
 
-                $respone = array(
-                    'consumerkey' => $user->consumer_key,
+                $response = array(
                     'ipv4'        => $server->ipv4,
                     'domainName'  => $server->domain_name
                 );
 
                 return array(
-                    'data' => json_encode($respone)
+                    'data' => json_encode($response)
                 );
             }
 
@@ -157,7 +152,9 @@ class UsersController extends \lithium\action\Controller
         return array();
     }
 
-    public function listUsers() {
+
+    public function listUsers()
+    {
         $this->verifyUserLoggedIn();
         $users = Users::find(
             'all',
@@ -169,44 +166,47 @@ class UsersController extends \lithium\action\Controller
         return array('users' => $users, 'title' => 'Users');
     }
 
-    public function addUsers() {
+    public function addUsers()
+    {
         $this->verifyUserLoggedIn();
         $postData = $this->request->data;
-        if(isset($postData['addUser'])) {
+        if (isset($postData['addUser'])) {
 
             // create new user
-            $user               = Users::create();
-            $user->first_name   = $postData['first_name'];
-            $user->last_name    = $postData['last_name'];
-            $user->username     = $postData['username'];
-            $user->password     = $postData['password'];
+            $user                = Users::create();
+            $user->first_name    = $postData['first_name'];
+            $user->last_name     = $postData['last_name'];
+            $user->username      = $postData['username'];
+            $user->password      = $postData['password'];
             $user->assigned_here = 1;
-            $success = $user->save();
-            if($success == true){
+            $success             = $user->save();
+            if ($success == true) {
                 return $this->redirect('Users::listUsers');
+            } else {
+                echo "Could not save user into database, please try again";
             }
-            else echo "Could not save user into database, please try again";
         }
 
         return array('title' => 'Add Users');
     }
 
-    public function updateUser() {
+    public function updateUser()
+    {
         $this->verifyUserLoggedIn();
 
         $postData = $this->request->data;
-        $getData = $this->request->query;
+        $getData  = $this->request->query;
 
-        if(isset($getData['user_id'])){
+        if (isset($getData['user_id'])) {
             $userId = $getData['user_id'];
-            if(isset($postData['update_user'])){
+            if (isset($postData['update_user'])) {
                 $success = Users::update(
-                    //SET
+                //SET
                     array(
-                        'username' => $postData['username'],
-                        'password' => $postData['password'],
+                        'username'   => $postData['username'],
+                        'password'   => $postData['password'],
                         'first_name' => $postData['first_name'],
-                        'last_name' => $postData['last_name']
+                        'last_name'  => $postData['last_name']
                     ),
                     //WHERE
                     array('id' => $userId)
@@ -225,24 +225,21 @@ class UsersController extends \lithium\action\Controller
         return $this->redirect('Users::listUsers');
     }
 
-    public function deleteUser() {
+    public function deleteUser()
+    {
         $this->verifyUserLoggedIn();
 
         $getData = $this->request->query;
-        if(isset($getData['user_id'])) {
+        if (isset($getData['user_id'])) {
             $userId = $getData['user_id'];
 
-            Users::remove(array('id' => $userId ));
+            Users::remove(array('id' => $userId));
         }
         return $this->redirect('Users::listUsers');
     }
 
-    private function willMigrateToServer($user, $lat, $long) {
-        echo '<pre>'; var_dump(array($lat, $long)); echo '</pre>'; die(' var dumped array($lat, $long)');
-
-
-    }
-    private function verifyUserLoggedIn() {
+    private function verifyUserLoggedIn()
+    {
         if (!Auth::check('default')) {
             return $this->redirect('Sessions::add');
         }
