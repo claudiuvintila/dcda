@@ -123,23 +123,30 @@ class UsersController extends \lithium\action\Controller
                     $user = $users->current();
                 } else {
                     // create new user
-                    $user             = Users::create();
+                    $user = Users::create();
                 }
 
-                $user->first_name = $postData['firstName'];
-                $user->last_name  = $postData['lastName'];
-                $user->username   = $postData['username'];
-                $user->password = $postData['password'];
+                $user->first_name    = $postData['firstName'];
+                $user->last_name     = $postData['lastName'];
+                $user->username      = $postData['username'];
+                $user->password      = $postData['password'];
+                $user->assigned_here = 1;
 
                 $success = $user->save();
 
-                $response = array(
-                    'ipv4'       => $server->ipv4,
-                    'domainName' => $server->domain_name
-                );
+                if ($success) {
+                    $response = array(
+                        'ipv4'       => $server->ipv4,
+                        'domainName' => $server->domain_name
+                    );
+                } else {
+                    $response = array(
+                        'error' => 'Migration failed!'
+                    );
+                }
 
                 return array(
-                    'data' => json_encode($success)
+                    'data' => json_encode($response)
                 );
             }
 

@@ -80,7 +80,9 @@ class SessionsController extends \lithium\action\Controller {
 
                     //close connection
                     curl_close($ch);
-echo '<pre>'; var_dump($result); echo '</pre>'; die(' var dumped $this');
+
+                    $resultObj = json_decode($result);
+echo '<pre>'; var_dump($resultObj); echo '</pre>'; die(' var dumped $this');
 
                     return array('new' => json_encode($newServerArray));
                 }
