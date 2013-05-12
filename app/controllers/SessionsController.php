@@ -86,12 +86,24 @@ class SessionsController extends \lithium\action\Controller
                     curl_close($ch);
 
                     $resultObj = json_decode($result);
-                    echo '<pre>';
-                    var_dump($resultObj);
-                    echo '</pre>';
-                    die(' var dumped $this');
 
-                    return array('new' => json_encode($newServerArray));
+                    if (!isset($resultObj->data) && $resultObj->data) {
+                        $user->assigned_here = 0;
+
+                        $success = $user->save();
+
+                        if (!$success) {
+                            return array(
+                                'data'   => null,
+                                'errors' => 'Migration failed!'
+                            );
+                        }
+                    }
+
+                    return array(
+                        'data'   => $newServerArray,
+                        'errors' => null
+                    );
                 }
             }
 

@@ -148,7 +148,8 @@ class UsersController extends \lithium\action\Controller
                 }
 
                 return array(
-                    'data' => $response
+                    'data'   => $response,
+                    'errors' => null
                 );
             }
 
