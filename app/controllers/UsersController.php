@@ -86,7 +86,10 @@ class UsersController extends \lithium\action\Controller
 
     public function migrateUser()
     {
-        $this->_render['layout'] = 'blank';
+        $this->_render['layout'] = 'json';
+        $this->_render['template'] = 'mobile';
+        $this->_render['type'] = 'json';
+
         $postData                = $this->request->data;
 
         if (!(isset($postData['adminKey']) && isset($postData['username']))) {
