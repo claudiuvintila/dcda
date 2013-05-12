@@ -122,23 +122,24 @@ class UsersController extends \lithium\action\Controller
                     // update existing user
                     $user = $users->current();
 
-                    $success            = $user->save();
+                    $success = $user->save();
                 } else {
                     // create new user
-                    $user               = Users::create();
-                    $user->first_name   = $postData['firstName'];
-                    $user->last_name    = $postData['lastName'];
-                    $user->username     = $postData['username'];
-                    $success            = $user->save();
+                    $user             = Users::create();
+                    $user->first_name = $postData['firstName'];
+                    $user->last_name  = $postData['lastName'];
+                    $user->username   = $postData['username'];
+
+                    $success = $user->save();
                 }
 
                 $response = array(
-                    'ipv4'        => $server->ipv4,
-                    'domainName'  => $server->domain_name
+                    'ipv4'       => $server->ipv4,
+                    'domainName' => $server->domain_name
                 );
 
                 return array(
-                    'data' => json_encode($response)
+                    'data' => json_encode($success)
                 );
             }
 

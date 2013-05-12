@@ -1,2 +1,1 @@
-<?php echo $this->content();
-?>
+<?php echo $this->content(); ?>
