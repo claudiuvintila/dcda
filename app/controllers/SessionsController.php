@@ -87,7 +87,7 @@ class SessionsController extends \lithium\action\Controller
 
                     $resultObj = json_decode($result);
                     echo '<pre>';
-                    var_dump($result);
+                    var_dump($resultObj);
                     echo '</pre>';
                     die(' var dumped $this');
 

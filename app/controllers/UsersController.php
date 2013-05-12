@@ -148,7 +148,7 @@ class UsersController extends \lithium\action\Controller
                 }
 
                 return array(
-                    'data' => json_encode($response)
+                    'data' => $response
                 );
             }
 
