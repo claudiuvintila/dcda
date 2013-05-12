@@ -8,9 +8,11 @@ use lithium\storage\Session;
 use app\models\Servers;
 use app\models\Users;
 
-class SessionsController extends \lithium\action\Controller {
+class SessionsController extends \lithium\action\Controller
+{
 
-    public function add() {
+    public function add()
+    {
         $this->_render['layout'] = 'login';
 
         if ($this->request->data && Auth::check('default', $this->request)) {
@@ -18,15 +20,15 @@ class SessionsController extends \lithium\action\Controller {
 
 //            $_POST['latitude'] = 46.957761;
 //            $_POST['longitude'] = 22.5;
-            $_POST['latitude'] = 45.73638444;
+            $_POST['latitude']  = 45.73638444;
             $_POST['longitude'] = 21.24562729;
             if (isset($_POST['latitude']) && isset($_POST['longitude'])) {
                 $newServer = $this->willMigrateToServer($_POST['latitude'], $_POST['longitude']);
 
                 if ($newServer) {
-                    $this->_render['layout'] = 'json';
+                    $this->_render['layout']   = 'json';
                     $this->_render['template'] = 'mobile';
-                    $this->_render['type'] = 'json';
+                    $this->_render['type']     = 'json';
 
                     $newServerArray = array(
                         'id'          => $newServer->id,
@@ -62,10 +64,12 @@ class SessionsController extends \lithium\action\Controller {
 
                     if ($newServer->ipv4) {
                         $host = $newServer->ipv4;
-                    } else if ($newServer->domain_name) {
-                        $host = $newServer->domain_name;
                     } else {
-                        return $this->redirect('/logout');
+                        if ($newServer->domain_name) {
+                            $host = $newServer->domain_name;
+                        } else {
+                            return $this->redirect('/logout');
+                        }
                     }
 
                     $url = 'http://' . $host . '/migrate-user';
@@ -82,7 +86,10 @@ class SessionsController extends \lithium\action\Controller {
                     curl_close($ch);
 
                     $resultObj = json_decode($result);
-echo '<pre>'; var_dump($result); echo '</pre>'; die(' var dumped $this');
+                    echo '<pre>';
+                    var_dump($result);
+                    echo '</pre>';
+                    die(' var dumped $this');
 
                     return array('new' => json_encode($newServerArray));
                 }
@@ -93,27 +100,29 @@ echo '<pre>'; var_dump($result); echo '</pre>'; die(' var dumped $this');
         // Handle failed authentication attempts
     }
 
-    public function delete() {
+    public function delete()
+    {
         Session::delete('username');
         Auth::clear('default');
         return $this->redirect('/login');
     }
 
 
-    private function willMigrateToServer($lat, $long) {
+    private function willMigrateToServer($lat, $long)
+    {
         $servers = Servers::find(
             'all',
             array()
         );
 
         $minDistance = 20000;
-        $newServer = null;
+        $newServer   = null;
 
         foreach ($servers as $server) {
             $distance = $this->distance($lat, $long, $server->latitude, $server->longitude);
             if ($distance < $minDistance) {
                 $minDistance = $distance;
-                $newServer = $server;
+                $newServer   = $server;
             }
         }
 
@@ -135,12 +144,12 @@ echo '<pre>'; var_dump($result); echo '</pre>'; die(' var dumped $this');
         $lat2 *= $pi80;
         $lng2 *= $pi80;
 
-        $r = 6372.797; // mean radius of Earth in km
+        $r    = 6372.797; // mean radius of Earth in km
         $dlat = $lat2 - $lat1;
         $dlng = $lng2 - $lng1;
-        $a = sin($dlat / 2) * sin($dlat / 2) + cos($lat1) * cos($lat2) * sin($dlng / 2) * sin($dlng / 2);
-        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        $km = $r * $c;
+        $a    = sin($dlat / 2) * sin($dlat / 2) + cos($lat1) * cos($lat2) * sin($dlng / 2) * sin($dlng / 2);
+        $c    = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $km   = $r * $c;
 
         return $km;
     }
