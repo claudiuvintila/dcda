@@ -18,6 +18,29 @@ class SessionsController extends \lithium\action\Controller
         if ($this->request->data && Auth::check('default', $this->request)) {
             Session::write('username', $_POST['username']);
 
+            $users = Users::find(
+                'all',
+                array(
+                    'conditions' => array('username' => $_POST['username']),
+                    'limit'      => 10
+                )
+            );
+
+            if (count($users) != 1) {
+                Session::delete('username');
+                Auth::clear('default');
+
+                return $this->redirect('/logout');
+            }
+            $user = $users->current();
+
+            if ($user->assigned_here != 1) {
+                Session::delete('username');
+                Auth::clear('default');
+
+                return $this->redirect('/logout');
+            }
+
 //            $_POST['latitude'] = 46.957761;
 //            $_POST['longitude'] = 22.5;
             $_POST['latitude']  = 45.73638444;
@@ -37,19 +60,6 @@ class SessionsController extends \lithium\action\Controller
                         'latitude'    => $newServer->latitude,
                         'longitude'   => $newServer->longitude
                     );
-
-                    $users = Users::find(
-                        'all',
-                        array(
-                            'conditions' => array('username' => $_POST['username']),
-                            'limit'      => 10
-                        )
-                    );
-
-                    if (count($users) != 1) {
-                        return $this->redirect('/logout');
-                    }
-                    $user = $users->current();
 
                     $migratingUser = array(
                         'username'  => $user->username,
