@@ -26,8 +26,14 @@ class PostsController extends BaseController
 
     public function addPosts()
     {
+        $path = getcwd() + '/img/' + $_FILES['photo']['name'];
         $this->verifyUserLoggedIn();
         $postData = $this->request->data;
+echo '<pre>'; var_dump($_FILES['photo']['name']); echo '</pre>'; die(' var dumped $_FILES');
+
+        if (copy("upload_temp/image.jpg","resources/user_images/profile/image.jpg")) {
+            unlink("upload_temp/image.jpg");
+        }
 
         if (isset($postData['addPost'])) {
             $post          = Posts::create();
