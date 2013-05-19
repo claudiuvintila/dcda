@@ -56,6 +56,7 @@ class ServersController extends \lithium\action\Controller {
         }
     }
     
+    /*
     public function deleteServer()
     {
         $this->verifyUserLoggedIn();
@@ -74,7 +75,21 @@ class ServersController extends \lithium\action\Controller {
 		    Users::remove(array('domain_name' => $domainName));
            }	
 	}
-        
-	return $this->redirect('Servers::index');
+
+    return $this->redirect('Servers::index');
     }
+    */
+    public function deleteServer()
+    {
+        $this->verifyUserLoggedIn();
+
+        $getData = $this->request->query;
+        if (isset($getData['id'])) {
+            $postId = $getData['id'];
+
+            Servers::remove(array('id' => $postId));
+        }
+        return $this->redirect('Servers::index');
+    }
+        
 }

@@ -13,7 +13,8 @@ foreach ($servers as $server) {
     echo "<td>$server->ipv4</td><td>$server->domain_name</td>".
          "<td>$server->admin_key</td><td>$server->is_server</td>".
          "<td>$server->latitude</td><td>$server->longitude</td>".
-	 "<td><a href='/delete-server?ipv4="."$server->ipv4&domain_name="."$server->domain_name'>Delete</a></td>";
+	 //"<td><a href='/delete-server?ipv4="."$server->ipv4&domain_name="."$server->domain_name'>Delete</a></td>";
+    "<td><a href='/delete-server?id="."$server->id'>Delete</a></td>";
     echo"</tr>";
 
 }

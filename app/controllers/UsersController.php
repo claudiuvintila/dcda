@@ -205,6 +205,7 @@ class UsersController extends \lithium\action\Controller
     {
         $this->verifyUserLoggedIn();
 
+        
         $postData = $this->request->data;
         $getData  = $this->request->query;
 
