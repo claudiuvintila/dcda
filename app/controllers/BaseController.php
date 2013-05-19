@@ -107,7 +107,7 @@ class BaseController extends \lithium\action\Controller {
             } else {
                 if ($returnPosts) {
                     return array(
-                        'data'   => $this->getPosts(),
+                        'data'   => array('posts' => $this->getPosts()),
                         'errors' => null
                     );
                 }
