@@ -62,16 +62,14 @@ Router::connect('/users', 'Users::listUsers');
 Router::connect('/users2', 'Users::listUsers2');
 Router::connect('/users3', 'Users::listUsers3');
 Router::connect('/add-user', 'Users::addUsers');
-
-
+Router::connect('/update-user/{:userId}', 'Users::updateUser');
 Router::connect('/delete-user', 'Users::deleteUser');
 Router::connect('/migrate-user', 'Users::migrateUser');
 
 //Posts
 Router::connect('/posts', 'Posts::index');
 Router::connect('/add-post','Posts::addPosts');
-Router::connect('/update-post','Posts::updatePost');
-Router::connect('/posts/update-post','Posts::updatePost');
+Router::connect('/update-post/{:postId}','Posts::updatePost');
 Router::connect('/delete-post','Posts::deletePost');
 Router::connect('/get-events-json','Posts::getJsonEvents');
 

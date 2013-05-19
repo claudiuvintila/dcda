@@ -15,7 +15,7 @@ foreach ($users as $user) {
         ."<td>$user->first_name</td>"
         ."<td>$user->last_name</td>"
         ."<td>$user->assigned_here</td>"
-        ."<td><a href='/update-user?user_id=".$user->id."'>Update</a></td>"
+        ."<td><a href='/update-user/".$user->id."'>Update</a></td>"
         ."<td><a href='/delete-user?user_id=".$user->id."'>Delete</a></td>";
     echo"</tr>";
 

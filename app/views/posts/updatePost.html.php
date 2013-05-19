@@ -8,7 +8,7 @@
  */
 foreach($post as $thePost) :
 ?>
-    <?=$this->form->create(null, array('action' => 'update-post?post_id='.$thePost->id)); ?>
+    <?=$this->form->create(null, array('action' => null)); ?>
     <?=$this->form->field('title', array('name' => 'title', 'value' => $thePost->title)); ?>
     <?=$this->form->field('author', array('name' => 'author', 'value' => $thePost->author)); ?>
     <?=$this->form->label('content'); ?>

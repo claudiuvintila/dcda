@@ -17,7 +17,7 @@ foreach ($posts as $post) {
 	      <td>$post->title</td>
               <td>$post->author</td>
               <td>$post->content</td>
-              <td><a href='/update-post?post_id="."$post->id' >Edit</a></td>
+              <td><a href='/update-post/"."$post->id' >Edit</a></td>
               <td><a href='/delete-post?post_id="."$post->id'>Delete</a></td>";
     echo"</tr>";
 

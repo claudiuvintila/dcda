@@ -6,7 +6,6 @@ use app\models\Users;
 use app\models\Servers;
 use lithium\storage\Session;
 use lithium\template\View;
-use lithium\util\String;
 use lithium\security\Auth;
 use lithium\security\Password;
 
@@ -14,6 +13,8 @@ class UsersController extends \lithium\action\Controller
 {
     public function listUsers2()
     {
+        echo '<pre>'; var_dump($_COOKIE); echo '</pre>'; die(' var dumped $_COOKIE');
+        
         $this->verifyUserLoggedIn();
 
         $this->willMigrateToServer(Session::read('username'), 45.73638444, 21.24562729);
@@ -188,7 +189,7 @@ class UsersController extends \lithium\action\Controller
             $user->first_name    = $postData['first_name'];
             $user->last_name     = $postData['last_name'];
             $user->username      = $postData['username'];
-            $user->password      = $postData['password'];
+            $user->password      = Password::hash($postData['password']);
             $user->assigned_here = 1;
             $success             = $user->save();
             if ($success == true) {
@@ -205,18 +206,17 @@ class UsersController extends \lithium\action\Controller
     {
         $this->verifyUserLoggedIn();
 
-        
         $postData = $this->request->data;
-        $getData  = $this->request->query;
+        
+        if (isset($this->request->params['userId'])) {
+            $userId = $this->request->params['userId'];
 
-        if (isset($getData['user_id'])) {
-            $userId = $getData['user_id'];
             if (isset($postData['update_user'])) {
                 $success = Users::update(
                 //SET
                     array(
                         'username'   => $postData['username'],
-                        'password'   => $postData['password'],
+                        'password'   => Password::hash($postData['password']),
                         'first_name' => $postData['first_name'],
                         'last_name'  => $postData['last_name']
                     ),

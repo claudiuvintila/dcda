@@ -7,7 +7,7 @@ use app\models\Servers;
 class BaseController extends \lithium\action\Controller {
 
     protected function redirectToServerOrAction($user, $internalRedirectURL = null) {
-        
+
         if (isset($_POST['latitude']) && isset($_POST['longitude'])) {
             $newServer = $this->willMigrateToServer($_POST['latitude'], $_POST['longitude']);
 
@@ -77,6 +77,10 @@ class BaseController extends \lithium\action\Controller {
                     'data'   => $newServerArray,
                     'errors' => null
                 );
+            } else {
+                if ($internalRedirectURL) {
+                    return $this->redirect($internalRedirectURL);
+                }
             }
         }
 

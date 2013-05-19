@@ -45,12 +45,12 @@ class PostsController extends BaseController
 
     public function updatePost()
     {
-        $this->verifyUserLoggedIn();
-        $getData  = $this->request->query;
+        $this->verifyUserLoggedIn();;
         $postData = $this->request->data;
 
-        if (isset($getData['post_id'])) {
-            $postId = $getData['post_id'];
+        if (isset($this->request->params['postId'])) {
+            $postId = $this->request->params['postId'];
+
             if (isset($postData['update_post'])) {
 
                 $success = Posts::update(
@@ -73,8 +73,8 @@ class PostsController extends BaseController
                 return array('post' => $posts, 'title' => 'Posts');
             }
         }
-        return $this->redirect('Posts::index');
 
+        return $this->redirect('Posts::index');
     }
 
     public function deletePost()

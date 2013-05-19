@@ -51,7 +51,6 @@ class SessionsController extends BaseController
             if ($redirect)
                 return $redirect;
 
-
             return $this->redirect('/users');
         }
         // Handle failed authentication attempts

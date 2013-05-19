@@ -8,9 +8,9 @@
  */
 foreach($users as $user) :
 ?>
-    <?=$this->form->create(null, array('action' => 'update-user?user_id='.$user->id)); ?>
+    <?=$this->form->create(null, array('action' => null)); ?>
     <?=$this->form->field('username', array('name' => 'username', 'value' => $user->username)); ?>
-    <?=$this->form->field('password', array('name' => 'password', 'value' => $user->password)); ?>
+    <?=$this->form->field('password', array('name' => 'password', 'value' => '')); ?>
     <?=$this->form->field('first_name', array('name' => 'first_name', 'value' => $user->first_name)); ?>
     <?=$this->form->field('last_name', array('name' => 'last_name', 'value' => $user->last_name)); ?>
 
