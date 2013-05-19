@@ -13,11 +13,16 @@ echo "<thead><tr><th>Date</th><th>Title</th><th>Author</th><th>Content</th><th>E
 foreach ($posts as $post) {
 
     echo"<tr>";
-        echo "<td>$post->date</td><td>$post->title</td><td>$post->author</td><td>$post->content</td><td><a href='/update-post?post_id="."$post->id' >Edit</a></td><td><a href='/delete-post?post_id="."$post->id'>Delete</a></td>";
+        echo "<td>$post->date</td>
+	      <td>$post->title</td>
+              <td>$post->author</td>
+              <td>$post->content</td>
+              <td><a href='/update-post?post_id="."$post->id' >Edit</a></td>
+              <td><a href='/delete-post?post_id="."$post->id'>Delete</a></td>";
     echo"</tr>";
 
 }
 echo "</table>";
 
-echo "<a class='btn' href='http://dcda/posts/addPosts'>Add Post</a>";
+echo "<a class='btn' href='/add-post'>Add Post</a>";
 ?>

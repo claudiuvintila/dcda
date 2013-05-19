@@ -42,6 +42,7 @@ class SessionsController extends BaseController
 
 //            $_POST['latitude'] = 46.957761;
 //            $_POST['longitude'] = 22.5;
+
 //            $_POST['latitude']  = 45.73638444;
 //            $_POST['longitude'] = 21.24562729;
 
@@ -49,6 +50,7 @@ class SessionsController extends BaseController
 
             if ($redirect)
                 return $redirect;
+
 
             return $this->redirect('/users');
         }
@@ -61,5 +63,5 @@ class SessionsController extends BaseController
         Auth::clear('default');
         return $this->redirect('/login');
     }
-
 }
+

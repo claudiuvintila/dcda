@@ -55,4 +55,26 @@ class ServersController extends \lithium\action\Controller {
             return $this->redirect('Sessions::add');
         }
     }
+    
+    public function deleteServer()
+    {
+        $this->verifyUserLoggedIn();
+	
+	$getData = $this->request->query;
+        if (isset($getData['ipv4'])) {
+            $ip = $getData['ipv4'];
+
+            Servers::remove(array('ipv4' => $ip));
+        }
+	else{
+	
+		if (isset($getData['domain_name'])) {
+		    $domainName = $getData['domain_name'];
+
+		    Users::remove(array('domain_name' => $domainName));
+           }	
+	}
+        
+	return $this->redirect('Servers::index');
+    }
 }
