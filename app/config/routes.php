@@ -71,7 +71,7 @@ Router::connect('/posts', 'Posts::index');
 Router::connect('/add-post','Posts::addPosts');
 Router::connect('/update-post','Posts::updatePost');
 Router::connect('/delete-post','Posts::deletePost');
-Router::connect('/getJson','Posts::getJsonEvents');
+Router::connect('/get-events-json','Posts::getJsonEvents');
 
 //Servers
 Router::connect('/servers','Servers::index');

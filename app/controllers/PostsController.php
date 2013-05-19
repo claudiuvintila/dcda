@@ -9,11 +9,12 @@
 namespace app\controllers;
 
 use app\models\Posts;
+use app\models\Users;
 use lithium\security\Auth;
-use lithium\action\Request;
+use app\controllers\BaseController;
 use lithium\storage\Session;
 
-class PostsController extends \lithium\action\Controller
+class PostsController extends BaseController
 {
     public function index()
     {
@@ -29,12 +30,12 @@ class PostsController extends \lithium\action\Controller
         $postData = $this->request->data;
 
         if (isset($postData['addPost'])) {
-            $post = Posts::create();
-            $post->date = date('Y-m-d');
-            $post->title = $postData['title'];
-            $post->author = $postData['author'];
+            $post          = Posts::create();
+            $post->date    = date('Y-m-d');
+            $post->title   = $postData['title'];
+            $post->author  = $postData['author'];
             $post->content = $postData['content'];
-            $success = $post->save();
+            $success       = $post->save();
 
             return $this->redirect('Posts::index');
         }
@@ -45,23 +46,22 @@ class PostsController extends \lithium\action\Controller
     public function updatePost()
     {
         $this->verifyUserLoggedIn();
-        $getData = $this->request->query;
+        $getData  = $this->request->query;
         $postData = $this->request->data;
 
-        if (isset($getData['post_id'])){
+        if (isset($getData['post_id'])) {
             $postId = $getData['post_id'];
             if (isset($postData['update_post'])) {
 
                 $success = Posts::update(
                     array(
-                        'title' => $postData['title'],
-                        'author' => $postData['author'],
+                        'title'   => $postData['title'],
+                        'author'  => $postData['author'],
                         'content' => $postData['content']
                     ),
                     array('id' => $postId)
                 );
-            }
-            else {
+            } else {
 
                 $posts = Posts::find(
                     'all',
@@ -77,14 +77,15 @@ class PostsController extends \lithium\action\Controller
 
     }
 
-    public function deletePost() {
+    public function deletePost()
+    {
         $this->verifyUserLoggedIn();
 
         $getData = $this->request->query;
-        if(isset($getData['post_id'])) {
+        if (isset($getData['post_id'])) {
             $postId = $getData['post_id'];
 
-            Posts::remove(array('id' => $postId ));
+            Posts::remove(array('id' => $postId));
         }
         return $this->redirect('Posts::index');
     }
@@ -92,20 +93,69 @@ class PostsController extends \lithium\action\Controller
     public function getJsonEvents()
     {
         $this->verifyUserLoggedIn();
-        $posts = Posts::find(
+        $username = Session::read('username');
+
+        // check if we need to redirect the user to another server
+
+
+        $users = Users::find(
+            'all',
+            array(
+                'conditions' => array('username' => $username),
+                'limit'      => 10
+            )
+        );
+
+        if (count($users) != 1) {
+            Session::delete('username');
+            Auth::clear('default');
+
+            return $this->redirect('/logout');
+        }
+        $user = $users->current();
+
+        if ($user->assigned_here != 1) {
+            Session::delete('username');
+            Auth::clear('default');
+
+            return $this->redirect('/logout');
+        }
+
+//            $_POST['latitude'] = 46.957761;
+//            $_POST['longitude'] = 22.5;
+//        $_POST['latitude']  = 45.73638444;
+//        $_POST['longitude'] = 21.24562729;
+        $redirect = $this->redirectToServerOrAction($user);
+
+        if ($redirect) {
+            return $redirect;
+        }
+
+        $posts                   = Posts::find(
             'all',
             array(
                 'conditions' => array(),
             )
         );
         $this->_render['layout'] = 'json';
+        $this->_render['type']   = 'json';
+
         $json_posts = array();
-        //echo "<pre>";
+
         foreach ($posts as $post) {
-            $j_post = array('date' => $post->date, 'title' => $post->title, 'author' => $post->author, 'content' => $post->content);
+            $j_post       = array(
+                'date'    => $post->date,
+                'title'   => $post->title,
+                'author'  => $post->author,
+                'content' => $post->content
+            );
             $json_posts[] = $j_post;
         }
-        return array('posts' => json_encode($json_posts), 'title' => 'Posts');
+
+        return array(
+            'data'   => array('posts' => $json_posts),
+            'errors' => null
+        );
     }
 
     private function verifyUserLoggedIn()
