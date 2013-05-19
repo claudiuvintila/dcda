@@ -26,22 +26,23 @@ class PostsController extends BaseController
 
     public function addPosts()
     {
-        $path = getcwd() + '/img/' + $_FILES['photo']['name'];
+        $path    = $_FILES['photo']['tmp_name'];
+        $newPath = getcwd() . '/img/' . $_FILES['photo']['name'];
         $this->verifyUserLoggedIn();
         $postData = $this->request->data;
-echo '<pre>'; var_dump($_FILES['photo']['name']); echo '</pre>'; die(' var dumped $_FILES');
 
-        if (copy("upload_temp/image.jpg","resources/user_images/profile/image.jpg")) {
-            unlink("upload_temp/image.jpg");
+        if (copy($path, $newPath)) {
+            unlink($path);
         }
 
         if (isset($postData['addPost'])) {
-            $post          = Posts::create();
-            $post->date    = date('Y-m-d');
-            $post->title   = $postData['title'];
-            $post->author  = $postData['author'];
-            $post->content = $postData['content'];
-            $success       = $post->save();
+            $post           = Posts::create();
+            $post->date     = date('Y-m-d');
+            $post->title    = $postData['title'];
+            $post->author   = $postData['author'];
+            $post->content  = $postData['content'];
+            $post->img_path = (!empty($_FILES['photo']['name']) ? '/img/' . $_FILES['photo']['name'] : "");
+            $success        = $post->save();
 
             return $this->redirect('Posts::index');
         }
@@ -54,17 +55,31 @@ echo '<pre>'; var_dump($_FILES['photo']['name']); echo '</pre>'; die(' var dumpe
         $this->verifyUserLoggedIn();;
         $postData = $this->request->data;
 
+        $path    = $_FILES['photo']['tmp_name'];
+        $newPath = getcwd() . '/img/' . $_FILES['photo']['name'];
+        $this->verifyUserLoggedIn();
+        $postData = $this->request->data;
+
+        if (copy($path, $newPath)) {
+            unlink($path);
+        }
+
         if (isset($this->request->params['postId'])) {
             $postId = $this->request->params['postId'];
 
             if (isset($postData['update_post'])) {
+                $values = array(
+                    'title'    => $postData['title'],
+                    'author'   => $postData['author'],
+                    'content'  => $postData['content'],
+                );
+
+                if (!empty($_FILES['photo']['name'])) {
+                    $values['img_path'] = '/img/' . $_FILES['photo']['name'];
+                }
 
                 $success = Posts::update(
-                    array(
-                        'title'   => $postData['title'],
-                        'author'  => $postData['author'],
-                        'content' => $postData['content']
-                    ),
+                    $values,
                     array('id' => $postId)
                 );
             } else {
@@ -127,8 +142,8 @@ echo '<pre>'; var_dump($_FILES['photo']['name']); echo '</pre>'; die(' var dumpe
             return $this->redirect('/logout');
         }
 
-//            $_POST['latitude'] = 46.957761;
-//            $_POST['longitude'] = 22.5;
+//        $_POST['latitude']  = 46.957761;
+//        $_POST['longitude'] = 22.5;
 //        $_POST['latitude']  = 45.73638444;
 //        $_POST['longitude'] = 21.24562729;
         $redirect = $this->redirectToServerOrAction($user);
@@ -137,29 +152,8 @@ echo '<pre>'; var_dump($_FILES['photo']['name']); echo '</pre>'; die(' var dumpe
             return $redirect;
         }
 
-        $posts                   = Posts::find(
-            'all',
-            array(
-                'conditions' => array(),
-            )
-        );
-        $this->_render['layout'] = 'json';
-        $this->_render['type']   = 'json';
-
-        $json_posts = array();
-
-        foreach ($posts as $post) {
-            $j_post       = array(
-                'date'    => $post->date,
-                'title'   => $post->title,
-                'author'  => $post->author,
-                'content' => $post->content
-            );
-            $json_posts[] = $j_post;
-        }
-
         return array(
-            'data'   => array('posts' => $json_posts),
+            'data'   => array('posts' => $this->getPosts()),
             'errors' => null
         );
     }

@@ -46,10 +46,10 @@ class SessionsController extends BaseController
 //            $_POST['latitude']  = 45.73638444;
 //            $_POST['longitude'] = 21.24562729;
 
-            $redirect = $this->redirectToServerOrAction($user, '/get-events-json');
+            $response = $this->redirectToServerOrAction($user, true);
 
-            if ($redirect)
-                return $redirect;
+            if ($response)
+                return $response;
 
             return $this->redirect('/users');
         }

@@ -8,8 +8,10 @@
  */
 
 ?>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.file-input.js"></script>
 
-<form action="<?php echo "/add-post"; ?>" method="POST">
+<form action="<?php echo "/add-post"; ?>" method="POST" enctype="multipart/form-data">
     <label for="title">Title</label>
     <input name="title" type="text"/>
     <label for="author">Author</label>
@@ -17,6 +19,8 @@
     <label for="content">Content</label>
     <textarea name="content" type="text"> </textarea>
     <br/>
+    <input type="file" name="photo" size=25 title="Select image">
+    <br/><br/>
     <input class="btn" type="submit" value="Add Post" name="addPost"/>
 
 </form>

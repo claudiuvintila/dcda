@@ -3,10 +3,37 @@
 namespace app\controllers;
 
 use app\models\Servers;
+use app\models\Posts;
 
 class BaseController extends \lithium\action\Controller {
 
-    protected function redirectToServerOrAction($user, $internalRedirectURL = null) {
+    protected function getPosts(){
+        $posts                   = Posts::find(
+            'all',
+            array(
+                'conditions' => array(),
+            )
+        );
+        $this->_render['layout'] = 'json';
+        $this->_render['type']   = 'json';
+
+        $json_posts = array();
+
+        foreach ($posts as $post) {
+            $j_post       = array(
+                'date'     => $post->date,
+                'title'    => $post->title,
+                'author'   => $post->author,
+                'content'  => $post->content,
+                'img_path' => $post->img_path
+            );
+            $json_posts[] = $j_post;
+        }
+
+        return $json_posts;
+    }
+
+    protected function redirectToServerOrAction($user, $returnPosts = false) {
 
         if (isset($_POST['latitude']) && isset($_POST['longitude'])) {
             $newServer = $this->willMigrateToServer($_POST['latitude'], $_POST['longitude']);
@@ -78,8 +105,11 @@ class BaseController extends \lithium\action\Controller {
                     'errors' => null
                 );
             } else {
-                if ($internalRedirectURL) {
-                    return $this->redirect($internalRedirectURL);
+                if ($returnPosts) {
+                    return array(
+                        'data'   => $this->getPosts(),
+                        'errors' => null
+                    );
                 }
             }
         }

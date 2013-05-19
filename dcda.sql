@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Version 4004
+# Version 4096
 #
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
 # Host: 192.168.0.103 (MySQL 5.5.29-0ubuntu0.12.04.1)
 # Database: dcda
-# Generation Time: 2013-04-27 13:23:35 +0000
+# Generation Time: 2013-05-19 21:39:49 +0000
 # ************************************************************
 
 
@@ -31,17 +31,19 @@ CREATE TABLE `posts` (
   `title` varchar(32) NOT NULL,
   `author` varchar(32) NOT NULL,
   `content` text NOT NULL,
+  `img_path` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
 
-INSERT INTO `posts` (`id`, `date`, `title`, `author`, `content`)
+INSERT INTO `posts` (`id`, `date`, `title`, `author`, `content`, `img_path`)
 VALUES
-	(1,'2013-04-24','titlu','eu','bla bla'),
-	(2,'2013-04-25','Postul lui Claudiu','Claudiu','blah blah'),
-	(3,'2013-04-24','Mishu\'s post','Mishu','Ana are mere');
+	(1,'2013-04-24','titlu','eu','bla bla',NULL),
+	(2,'2013-04-25','Postul lui Claudiu','Claudiu','blah blah',NULL),
+	(3,'2013-04-24','Mishu\'s post','Mishu','Ana nu \r\nare mere',NULL),
+	(10,'2013-05-19','','',' ','/var/www/dcda/app/webroot/img/trinity-nmapscreen-hd.png');
 
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -68,8 +70,8 @@ LOCK TABLES `servers` WRITE;
 
 INSERT INTO `servers` (`id`, `ipv4`, `domain_name`, `admin_key`, `is_server`, `latitude`, `longitude`)
 VALUES
-	(1,NULL,'dcda.lan','adminadminadmin',1,NULL,NULL),
-	(2,'79.114.33.175',NULL,'bogdanbogdan',0,45.73638444,21.24562729);
+	(1,'192.168.0.103',NULL,'adminadminadmin',1,46.957761,22.5),
+	(2,'192.168.0.106',NULL,'bogdanbogdan',0,45.73638444,21.24562729);
 
 /*!40000 ALTER TABLE `servers` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -97,7 +99,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `a
 VALUES
 	(7,'claudiu','$2a$10$GkqS3qgKoYlodbVjcVFqA.06Bu9bUP4Rr/M4/FYJym.jbgRgLBk.G','Claudiu','Vintila',1),
 	(8,'claudiu1','','Claudiu','Vintila',1),
-	(9,'claudiu2','','Claudiu','Vintila',1);
+	(13,'bogdan','$2a$10$0hJUmnG5QrVDcVdN0xW7pOcIF104NEykIiclLUmE6RCXtMnhtrwAe','Bogdan','Cimpoesu',1),
+	(14,'mihai','$2a$10$kYp71d/FXkJdTn0ng/2reuypI.dNmJ7OuQsG6ySgP9edOOwA9ER.W','Mihai','Simu',1);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;

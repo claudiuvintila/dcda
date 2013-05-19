@@ -1,3 +1,5 @@
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.file-input.js"></script>
 <?php
 /**
  * Created by JetBrains PhpStorm.
@@ -8,12 +10,14 @@
  */
 foreach($post as $thePost) :
 ?>
-    <?=$this->form->create(null, array('action' => null)); ?>
+    <?=$this->form->create(null, array('action' => null, 'enctype' => 'multipart/form-data')); ?>
     <?=$this->form->field('title', array('name' => 'title', 'value' => $thePost->title)); ?>
     <?=$this->form->field('author', array('name' => 'author', 'value' => $thePost->author)); ?>
     <?=$this->form->label('content'); ?>
     <?=$this->form->textarea('content', array('name' => 'content', 'value' => $thePost->content));?>
-    <br />
+    <br/>
+    <input type="file" name="photo" size=25 title="Select image">
+    <br/><br/>
     <?=$this->form->submit('Update', array('class' => 'btn','name' => 'update_post')); ?>
     <?=$this->form->end(); ?>
 <?php endforeach; ?>
