@@ -8,3 +8,4 @@ app/resources/tmp
 .project
 ._*
 app/config/bootstrap/connections.php
+app/webroot/img/*
