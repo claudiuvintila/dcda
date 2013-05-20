@@ -34,10 +34,21 @@ class SessionsController extends BaseController
             $user = $users->current();
 
             if ($user->assigned_here != 1) {
-                Session::delete('username');
-                Auth::clear('default');
+                if (isset($_POST['latitude']) && isset($_POST['longitude'])) {
+                    $this->_render['layout']   = 'json';
+                    $this->_render['template'] = 'mobile';
+                    $this->_render['type']     = 'json';
 
-                return $this->redirect('/logout');
+                    return array(
+                        'data'   => null,
+                        'errors' => 'User is not assigned here!'
+                    );
+                } else {
+                    Session::delete('username');
+                    Auth::clear('default');
+
+                    return $this->redirect('/logout');
+                }
             }
 
 //            $_POST['latitude'] = 46.957761;
