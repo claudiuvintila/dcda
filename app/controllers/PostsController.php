@@ -52,7 +52,7 @@ class PostsController extends BaseController
 
     public function updatePost()
     {
-        $this->verifyUserLoggedIn();;
+        $this->verifyUserLoggedIn();
         $postData = $this->request->data;
 
         $path    = $_FILES['photo']['tmp_name'];

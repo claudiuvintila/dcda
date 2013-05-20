@@ -77,7 +77,7 @@ Router::connect('/get-events-json','Posts::getJsonEvents');
 Router::connect('/servers','Servers::index');
 Router::connect('/add-server','Servers::addServers');
 Router::connect('/delete-server', 'Servers::deleteServer');
-
+Router::connect('/update-server/{:serverId}', 'Servers::updateServer');
 
 /**
  * Add the testing routes. These routes are only connected in non-production environments, and allow

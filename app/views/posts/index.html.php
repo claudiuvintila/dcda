@@ -10,7 +10,7 @@
 <?php
 
 echo "<table>";
-echo "<thead><tr><th>Date</th><th>Title</th><th>Author</th><th>Content</th><th>Img path</th><th>Edit</th><th>Delete</th></tr></thead>";
+echo "<thead><tr><th>Date</th><th>Title</th><th>Author</th><th>Content</th><th>Image</th><th>Edit</th><th>Delete</th></tr></thead>";
 foreach ($posts as $post) {
 
     echo"<tr>";

@@ -23,6 +23,43 @@ class ServersController extends \lithium\action\Controller {
         return array('servers' => $servers, 'title' => 'Servers');
     }
 
+    public function updateServer() {
+        $this->verifyUserLoggedIn();
+        $postData = $this->request->data;
+
+        if (isset($this->request->params['serverId'])) {
+            $serverId = $this->request->params['serverId'];
+
+            if (isset($postData['update_server'])) {
+                $values = array(
+                    'ipv4'        => $postData['ipv4'],
+                    'domain_name' => $postData['domain_name'],
+                    'admin_key'   => $postData['admin_key'],
+                    'is_server'   => $postData['is_server'],
+                    'latitude'    => $postData['latitude'],
+                    'longitude'   => $postData['longitude'],
+                );
+
+                $success = Servers::update(
+                    $values,
+                    array('id' => $serverId)
+                );
+            } else {
+
+                $servers = Servers::find(
+                    'all',
+                    array(
+                        'conditions' => array('id' => $serverId),
+                    )
+                );
+
+                return array('servers' => $servers, 'title' => 'Servers');
+            }
+        }
+
+        return $this->redirect('Servers::index');
+    }
+
     public function addServers() {
         $this->verifyUserLoggedIn();
 
@@ -55,7 +92,7 @@ class ServersController extends \lithium\action\Controller {
             return $this->redirect('Sessions::add');
         }
     }
-    
+
     /*
     public function deleteServer()
     {
@@ -91,5 +128,5 @@ class ServersController extends \lithium\action\Controller {
         }
         return $this->redirect('Servers::index');
     }
-        
+
 }
