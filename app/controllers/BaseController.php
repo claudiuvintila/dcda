@@ -87,7 +87,7 @@ class BaseController extends \lithium\action\Controller {
 
                 $resultObj = json_decode($result);
 
-                if (!isset($resultObj->data) && $resultObj->data) {
+                if (isset($resultObj->data) && $resultObj->data) {
                     $user->assigned_here = 0;
 
                     $success = $user->save();
