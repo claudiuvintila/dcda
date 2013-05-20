@@ -91,7 +91,7 @@ class PostsController extends BaseController
                     )
                 );
 
-                return array('post' => $posts, 'title' => 'Posts');
+                return array('post' => $posts, 'title' => 'Posts', 'img_path' => $posts->current()->img_path);
             }
         }
 

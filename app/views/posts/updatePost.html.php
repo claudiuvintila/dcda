@@ -1,5 +1,14 @@
 <script src="/js/jquery.js"></script>
 <script src="/js/bootstrap.file-input.js"></script>
+
+<style>
+    img {
+        max-width:300px;
+        max-height:300px;
+        vertical-align: middle;
+    }
+</style>
+
 <?php
 /**
  * Created by JetBrains PhpStorm.
@@ -16,6 +25,8 @@ foreach($post as $thePost) :
     <?=$this->form->label('content'); ?>
     <?=$this->form->textarea('content', array('name' => 'content', 'value' => $thePost->content));?>
     <br/>
+    <img src="<?=$img_path ?>" />
+    <br/><br/>
     <input type="file" name="photo" size=25 title="Select image">
     <br/><br/>
     <?=$this->form->submit('Update', array('class' => 'btn','name' => 'update_post')); ?>
