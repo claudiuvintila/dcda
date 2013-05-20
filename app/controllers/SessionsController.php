@@ -76,6 +76,17 @@ class SessionsController extends BaseController
             return $this->redirect('/users');
         }
         // Handle failed authentication attempts
+
+        if (isset($_POST['latitude']) && isset($_POST['longitude'])) {
+            $this->_render['layout']   = 'json';
+            $this->_render['template'] = 'mobile';
+            $this->_render['type']     = 'json';
+
+            return array(
+                'data'   => null,
+                'errors' => 'User not found!'
+            );
+        }
     }
 
     public function delete()
