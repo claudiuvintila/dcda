@@ -215,10 +215,11 @@ class UsersController extends \lithium\action\Controller
                 $success = Users::update(
                 //SET
                     array(
-                        'username'   => $postData['username'],
-                        'password'   => Password::hash($postData['password']),
-                        'first_name' => $postData['first_name'],
-                        'last_name'  => $postData['last_name']
+                        'username'      => $postData['username'],
+                        'password'      => Password::hash($postData['password']),
+                        'first_name'    => $postData['first_name'],
+                        'last_name'     => $postData['last_name'],
+                        'assigned_here' => $postData['assigned_here'],
                     ),
                     //WHERE
                     array('id' => $userId)
