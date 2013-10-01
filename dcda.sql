@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: 79.114.33.175 (MySQL 5.5.31-0ubuntu0.12.04.1)
+# Host: 192.168.1.61 (MySQL 5.5.29-0ubuntu0.12.04.1)
 # Database: dcda
-# Generation Time: 2013-05-20 19:04:23 +0000
+# Generation Time: 2013-10-01 18:48:58 +0000
 # ************************************************************
 
 
@@ -40,10 +40,9 @@ LOCK TABLES `posts` WRITE;
 
 INSERT INTO `posts` (`id`, `date`, `title`, `author`, `content`, `img_path`)
 VALUES
-	(1,'2013-04-24','titlu','eu','bla bla',NULL),
-	(2,'2013-04-25','Postul lui Claudiuuuu','Claudiu','blah blah',NULL),
-	(3,'2013-04-24','Mishu\'s post','Mishu','Ana are mere',NULL),
-	(4,'2013-04-24','Laura\'s post','Laura','Ana nu are mere',NULL);
+	(1,'2013-04-24','Random post','eu','bla bla bla bla','/img/65a088080ee1b1affcebf874e150a3e6.jpeg'),
+	(2,'2013-04-25','Post no. 346','Claudiu','once upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a timeonce upon a time','/img/5e30529000dba625140e3afbdbffcaf0.jpeg'),
+	(3,'2013-04-24','Red car','Mishu','Ana nu \r\nare mere','/img/df7f83a1bef2b6efc57697be8fa64082.png');
 
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -70,8 +69,9 @@ LOCK TABLES `servers` WRITE;
 
 INSERT INTO `servers` (`id`, `ipv4`, `domain_name`, `admin_key`, `is_server`, `latitude`, `longitude`)
 VALUES
-	(1,'192.168.0.103',NULL,'adminadminadmin',0,45.73638444,21.24562729),
-	(2,'192.168.0.106',NULL,'bogdanbogdan',1,45.756297,22.5);
+	(1,'192.168.0.75',NULL,'claudiu',1,11,11),
+	(2,'79.114.33.175',NULL,'bogdan',0,22,22),
+	(3,'192.168.0.78','','mihai',0,33,33);
 
 /*!40000 ALTER TABLE `servers` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -97,8 +97,9 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `assigned_here`)
 VALUES
-	(10,'claudiu','$2a$10$GkqS3qgKoYlodbVjcVFqA.06Bu9bUP4Rr/M4/FYJym.jbgRgLBk.G','Claudiu','Vintila',1),
-	(11,'mihai','$2a$10$kYp71d/FXkJdTn0ng/2reuypI.dNmJ7OuQsG6ySgP9edOOwA9ER.W','Mihai','Simu',0);
+	(7,'claudiu','$2a$10$xSDpfb6TCMiPd0vFj25gJO/EGqqok4tGSD3RsEnFeGLM2/MEYpLH2','Claudiu','Vintila',1),
+	(13,'bogdan','$2a$10$rnrc7iYeQlwpJiAqXpRUUu5Kmwx2i24oDM4/5yCKBdch/pZVvME9W','Bogdan','Cimpoesu',1),
+	(15,'mihai','$2a$10$EjfkdkaRHi9GwoVzht/oS.OmDVEUj7HfFtafsyKAgF9n3Uc3tKeqy','Mihai-Stelian','Simu',0);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
