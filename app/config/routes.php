@@ -75,6 +75,7 @@ Router::connect('/get-events-json','Posts::getJsonEvents');
 
 //Servers
 Router::connect('/servers','Servers::index');
+Router::connect('/map-servers','Servers::mapServers');
 Router::connect('/add-server','Servers::addServers');
 Router::connect('/delete-server', 'Servers::deleteServer');
 Router::connect('/update-server/{:serverId}', 'Servers::updateServer');

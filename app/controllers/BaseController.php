@@ -33,6 +33,34 @@ class BaseController extends \lithium\action\Controller {
         return $json_posts;
     }
 
+    protected function getServers(){
+        $servers                 = Servers::find(
+            'all',
+            array(
+                'conditions' => array(),
+            )
+        );
+
+        $this->_render['layout'] = 'json';
+        $this->_render['type']   = 'json';
+
+        $json_servers = array();
+
+        foreach ($servers as $server) {
+            $j_server      = array(
+                'id'          => $server->id,
+                'ipv4'        => $server->ipv4,
+                'domain_name' => $server->domain_name,
+                'is_server'   => $server->is_server,
+                'latitude'    => $server->latitude,
+                'longitude'   => $server->longitude
+            );
+            $json_servers[] = $j_server;
+        }
+
+        return $json_servers;
+    }
+
     protected function redirectToServerOrAction($user, $returnPosts = false) {
 
         if (isset($_POST['latitude']) && isset($_POST['longitude'])) {

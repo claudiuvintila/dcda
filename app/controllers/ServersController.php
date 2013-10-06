@@ -10,8 +10,11 @@ namespace app\controllers;
 
 use app\models\Servers;
 use lithium\security\Auth;
+use app\models\Users;
+use app\controllers\BaseController;
+use lithium\storage\Session;
 
-class ServersController extends \lithium\action\Controller {
+class ServersController extends BaseController {
     public function index() {
         $this->verifyUserLoggedIn();
         $servers = Servers::find(
@@ -21,6 +24,78 @@ class ServersController extends \lithium\action\Controller {
             )
         );
         return array('servers' => $servers, 'title' => 'Servers');
+    }
+
+    public function mapServers() {
+        $this->verifyUserLoggedIn();
+        $servers = Servers::find(
+            'all',
+            array(
+                'conditions' => array()
+            )
+        );
+
+        $this->verifyUserLoggedIn();
+        $username = Session::read('username');
+
+        // check if we need to redirect the user to another server
+
+
+        $users = Users::find(
+            'all',
+            array(
+                'conditions' => array('username' => $username),
+                'limit'      => 10
+            )
+        );
+
+        if (count($users) != 1) {
+            Session::delete('username');
+            Auth::clear('default');
+
+            return $this->redirect('/logout');
+        }
+        $user = $users->current();
+
+        if ($user->assigned_here != 1) {
+            Session::delete('username');
+            Auth::clear('default');
+
+            return $this->redirect('/logout');
+        }
+
+        $redirect = $this->redirectToServerOrAction($user);
+
+        if ($redirect) {
+            return $redirect;
+        }
+
+        $servers = $this->getServers();
+
+        $url = 'http://maps.googleapis.com/maps/api/staticmap?';
+        $markers = '';
+
+        foreach($servers as $server) {
+            $color = 'blue';
+            if ($server['is_server']) {
+                $url .= 'center=' . $server['latitude'] . ',' . $server['longitude'];
+                $color = 'green';
+            }
+
+            $markers .= '&' . 'markers=color:' . $color
+                . '|label:' . $server['id']
+                . '|' . $server['latitude'] . ',' . $server['longitude'];
+        }
+
+        $url .= '&size=900x700'
+            . '&maptype=roadmap'
+            . '&sensor=false'
+            . $markers;
+
+        return array(
+            'data'   => array('mapUrl' => $url),
+            'errors' => null
+        );
     }
 
     public function updateServer() {
