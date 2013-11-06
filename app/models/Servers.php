@@ -14,3 +14,15 @@ class Servers extends \lithium\data\Model
         'longitude'   => array('type' => 'double', 'default' => 0.0, 'null' => true),
     );
 }
+
+/*
+CREATE TABLE servers(
+id integer(20),
+ipv4 varchar(256),
+domain_name varchar(256),
+admin_key varchar(256),
+is_server integer(1) DEFAULT 0 NOT NULL,
+latitude decimal(5,2) DEFAULT 0.0,
+longitude decimal(5,2) DEFAULT 0.0
+);
+*/

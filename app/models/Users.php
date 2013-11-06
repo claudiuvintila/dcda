@@ -15,3 +15,18 @@ class Users extends \lithium\data\Model
     );
 
 }
+
+/*
+CREATE TABLE users(
+id integer(20) NOT NULL,
+username varchar(256) DEFAULT 'john.doe' NOT NULL,
+password varchar(20) DEFAULT '' NOT NULL,
+first_name varchar(20) DEFAULT 'John',
+last_name varchar(20) DEFAULT 'Doe',
+assigned_here integer(1) DEFAULT 0 NOT NULL
+);
+
+INSERT INTO users 
+(id,username,password,assigned_here)
+values (1,'mike','mikepass',1);
+*/
