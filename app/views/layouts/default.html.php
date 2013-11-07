@@ -62,7 +62,7 @@
     if(isset($title)) {
         $titlu = $title;
     }
-    $pages = array('users'=>'Users','posts'=>'Posts','servers' => 'Servers');?>
+    $pages = array('users'=>'Users','posts'=>'Posts','servers' => 'Servers', 'user-input' => 'UserInput');?>
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">

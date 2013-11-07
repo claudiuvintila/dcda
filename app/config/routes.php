@@ -80,6 +80,13 @@ Router::connect('/add-server','Servers::addServers');
 Router::connect('/delete-server', 'Servers::deleteServer');
 Router::connect('/update-server/{:serverId}', 'Servers::updateServer');
 
+//User-added input/events
+Router::connect('/user-events','UserInput::index');
+Router::connect('/update-event/{:eventId}','UserInput::updateUserInput');
+Router::connect('/delete-event','UserInput::deleteUserInput');
+Router::connect('/add-user-input','UserInput::addUserInput');
+Router::connect('/add-traffic-jam','UserInput::addTrafficJam');
+
 /**
  * Add the testing routes. These routes are only connected in non-production environments, and allow
  * browser-based access to the test suite for running unit and integration tests for the Lithium
