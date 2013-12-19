@@ -17,6 +17,7 @@ class Posts extends \lithium\data\Model
         'author' => array('type' => 'string', 'default' => null, 'null' => true),
         'content' => array('type' => 'string', 'default' => 0, 'null' => false),
         'img_path' => array('type' => 'string', 'default' => '', 'null' => true),
+        'tag' => array('type' => 'string', 'default' => '', 'null' => true),
     );
 }
 

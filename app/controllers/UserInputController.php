@@ -37,16 +37,19 @@ class UserInputController extends BaseController
         $this->verifyUserLoggedIn();
         $postData = $this->request->data;
 
-        if(isset($postData['add_event'])) {
+        if(isset($postData['add_event']) || isset($postData['tag'])) {
 
+//            var_dump($postData);
+//            die('aici');
             $success = $this->insertUserData($postData);
 
             if($success == true) {
                 return $this->redirect('UserInput::index');
             }
             else echo "Could not save user into database, please try again";
+            die();
         }
-
+//        echo "Could not save user into database, please try again";
         return array('title' => 'Add User Events');
     }
 
@@ -63,13 +66,20 @@ class UserInputController extends BaseController
     }
 
     private function insertUserData($userData) {
+        var_dump($userData);
+//        die();
         $event = UserInput::create();
-        $event->tags = $userData['tags']!=''?$userData['tags']:'traffic-jam';
+        $event->tag = $userData['tag']!=''?$userData['tag']:'traffic-jam';
         $event->latitude = $userData['latitude'];
         $event->longitude = $userData['longitude'];
         $event->description = $userData['description']!=''?$userData['description']:' ';
+        $event->title = $userData['title'];
+        $event->author = $userData['author'];
+        $event->content = $userData['content'];
+        $event->date = $userData['date'];
+        $event->img_path = $userData['img_path'];
         $success = $event->save();
-
+//        die($success);
         return $success;
     }
 
@@ -82,7 +92,7 @@ class UserInputController extends BaseController
 
             if (isset($postData['update_user_input'])) {
                 $values = array(
-                    'tags'        => $postData['tags'],
+                    'tag'        => $postData['tag'],
                     'latitude'    => $postData['latitude'],
                     'longitude'   => $postData['longitude'],
                     'description'   => $postData['description'],

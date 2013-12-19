@@ -117,7 +117,12 @@ class PostsController extends BaseController
         $username = Session::read('username');
 
         // check if we need to redirect the user to another server
+        $postData = $this->request->query;
+        $tag = '';
 
+        if(isset($postData['tag'])){
+            $tag = $postData['tag'];
+        }
 
         $users = Users::find(
             'all',
@@ -153,7 +158,7 @@ class PostsController extends BaseController
         }
 
         return array(
-            'data'   => array('posts' => $this->getPosts()),
+            'data'   => array('posts' => $this->getPosts($tag)),
             'errors' => null
         );
     }

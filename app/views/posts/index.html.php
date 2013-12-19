@@ -19,6 +19,7 @@ foreach ($posts as $post) {
               <td>$post->author</td>
               <td>$post->content</td>
               <td><img src=\"$post->img_path\" /></td>
+              <td>$post->tag</td>
               <td><a href='/update-post/"."$post->id' >Edit</a></td>
               <td><a href='/delete-post?post_id="."$post->id'>Delete</a></td>";
     echo"</tr>";

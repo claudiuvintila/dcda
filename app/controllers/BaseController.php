@@ -7,11 +7,15 @@ use app\models\Posts;
 
 class BaseController extends \lithium\action\Controller {
 
-    protected function getPosts(){
-        $posts                   = Posts::find(
+    protected function getPosts($tag){
+        $conditions = array();
+        if($tag != '' && $tag != 'all') {
+            $conditions = array('tag' => $tag);
+        }
+        $posts = Posts::find(
             'all',
             array(
-                'conditions' => array(),
+                'conditions' => $conditions,
             )
         );
         $this->_render['layout'] = 'json';
@@ -25,7 +29,8 @@ class BaseController extends \lithium\action\Controller {
                 'title'    => $post->title,
                 'author'   => $post->author,
                 'content'  => $post->content,
-                'img_path' => $post->img_path
+                'img_path' => $post->img_path,
+                'tag' => $post->tag
             );
             $json_posts[] = $j_post;
         }
@@ -135,7 +140,7 @@ class BaseController extends \lithium\action\Controller {
             } else {
                 if ($returnPosts) {
                     return array(
-                        'data'   => array('posts' => $this->getPosts()),
+                        'data'   => array('posts' => $this->getPosts('all')),
                         'errors' => null
                     );
                 }
