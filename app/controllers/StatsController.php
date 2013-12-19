@@ -20,8 +20,14 @@ class StatsController extends \lithium\action\Controller
                 'conditions' => array()
             )
         );
+	$servers = Servers::find(
+            'all',
+            array(
+                'conditions' => array()
+            )
+        );
 
-        return array('stats' => $stats, 'title' => 'Stats');
+        return array('stats' => $stats, 'title' => 'Stats', 'servers'=> $servers);
     }
 
     private function verifyUserLoggedIn()

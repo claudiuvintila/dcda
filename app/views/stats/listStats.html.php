@@ -6,7 +6,7 @@
  * Time: 00:22
  * To change this template use File | Settings | File Templates.
  */
-
+/*
 echo "<table>";
 echo "<thead><tr>
 	<th>Time</th>	
@@ -23,7 +23,13 @@ foreach ($stats as $stat) {
         ."<td>$stat->wau</td>"
         ."<td>$stat->dau</td>";
     echo"</tr>";
-
 }
+
 echo "</table>";
+*/
+
+foreach ($servers as $server) {
+    if($server->is_server)
+	echo "<img src=\"img/mau_img.php?ip=".$server->ipv4."\">";
+}
 ?>
