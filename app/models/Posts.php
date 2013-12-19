@@ -19,3 +19,15 @@ class Posts extends \lithium\data\Model
         'img_path' => array('type' => 'string', 'default' => '', 'null' => true),
     );
 }
+
+/*
+CREATE TABLE posts(
+id integer(20),
+date date,
+title varchar(40),
+author varchar(40),
+content varchar(256) DEFAULT '' NOT NULL,
+img_path varchar(256) default '' NOT NULL
+);
+
+*/

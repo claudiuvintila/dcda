@@ -80,6 +80,8 @@ Router::connect('/add-server','Servers::addServers');
 Router::connect('/delete-server', 'Servers::deleteServer');
 Router::connect('/update-server/{:serverId}', 'Servers::updateServer');
 
+//Stats
+Router::connect('/stats','Stats::listStats');
 //User-added input/events
 Router::connect('/user-events','UserInput::index');
 Router::connect('/update-event/{:eventId}','UserInput::updateUserInput');
