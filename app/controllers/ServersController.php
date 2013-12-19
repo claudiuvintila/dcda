@@ -93,7 +93,10 @@ class ServersController extends BaseController {
             . $markers;
 
         return array(
-            'data'   => array('mapUrl' => $url),
+            'data'   => array(
+                'mapUrl'  => $url,
+                'servers' => $servers
+            ),
             'errors' => null
         );
     }
