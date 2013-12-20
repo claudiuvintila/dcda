@@ -69,12 +69,12 @@ class UserInputController extends BaseController
 
             foreach($posts as $post) {
                 $allowedPost  = Posts::create();
-                $allowedPost->date     = date('Y-m-d');
+                $allowedPost->date     = $post->date;
                 $allowedPost->title    = $post->title;
                 $allowedPost->author   = $post->author;
                 $allowedPost->content  = $post->content;
                 $allowedPost->tag  = $post->tag;
-                $allowedPost->img_path = (!empty($_FILES['photo']['name']) ? '/img/' . $_FILES['photo']['name'] : "");
+                $allowedPost->img_path = $post->img_path;
                 $success        = $allowedPost->save();
 //                var_dump($post);
 //                var_dump($allowedPost);
