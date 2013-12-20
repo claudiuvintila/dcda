@@ -37,10 +37,12 @@ class PostsController extends BaseController
 
         if (isset($postData['addPost'])) {
             $post           = Posts::create();
-            $post->date     = date('Y-m-d');
+            $post->date     = $postData['date'] != ''?$postData['date']:'2013-12-20';//date('Y-m-d');
             $post->title    = $postData['title'];
             $post->author   = $postData['author'];
             $post->content  = $postData['content'];
+            $post->tag  = $postData['tag'];
+
             $post->img_path = (!empty($_FILES['photo']['name']) ? '/img/' . $_FILES['photo']['name'] : "");
             $success        = $post->save();
 
@@ -72,6 +74,7 @@ class PostsController extends BaseController
                     'title'    => $postData['title'],
                     'author'   => $postData['author'],
                     'content'  => $postData['content'],
+                    'tag'      => $postData['tag'],
                 );
 
                 if (!empty($_FILES['photo']['name'])) {

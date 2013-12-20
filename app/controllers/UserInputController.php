@@ -53,6 +53,39 @@ class UserInputController extends BaseController
         return array('title' => 'Add User Events');
     }
 
+    public function allowPost() {
+        $this->verifyUserLoggedIn();
+        $postData = $this->request->query;
+
+        if(isset($postData['id'])) {
+            $postId = $postData['id'];
+
+            $posts = UserInput::find(
+                'all',
+                array(
+                    'conditions' => array('id' => $postId),
+                )
+            );
+
+            foreach($posts as $post) {
+                $allowedPost  = Posts::create();
+                $allowedPost->date     = date('Y-m-d');
+                $allowedPost->title    = $post->title;
+                $allowedPost->author   = $post->author;
+                $allowedPost->content  = $post->content;
+                $allowedPost->tag  = $post->tag;
+                $allowedPost->img_path = (!empty($_FILES['photo']['name']) ? '/img/' . $_FILES['photo']['name'] : "");
+                $success        = $allowedPost->save();
+//                var_dump($post);
+//                var_dump($allowedPost);
+//                die($success);
+            }
+
+            UserInput::remove(array('id' => $postId));
+        }
+        return $this->redirect('UserInput::index');
+    }
+
     public function deleteUserInput() {
         $this->verifyUserLoggedIn();
 
@@ -91,11 +124,17 @@ class UserInputController extends BaseController
             $eventId = $this->request->params['eventId'];
 
             if (isset($postData['update_user_input'])) {
+
                 $values = array(
                     'tag'        => $postData['tag'],
                     'latitude'    => $postData['latitude'],
                     'longitude'   => $postData['longitude'],
                     'description'   => $postData['description'],
+                    'title' => $postData['title'],
+                    'author' => $postData['author'],
+                    'content' => $postData['content'],
+                    'date' => $postData['date'],
+                    'img_path' => $postData['img_path']
                     );
 
                 $success = UserInput::update(

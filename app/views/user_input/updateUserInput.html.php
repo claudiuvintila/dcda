@@ -2,7 +2,7 @@
 foreach($events as $event) :
     ?>
     <?=$this->form->create(null, array('action' => null)); ?>
-    <?=$this->form->field('tags', array('name' => 'tags', 'value' => $event->tags)); ?>
+    <?=$this->form->field('tag', array('name' => 'tag', 'value' => $event->tag)); ?>
     <?=$this->form->field('latitude', array('name' => 'latitude', 'value' => $event->latitude)); ?>
     <?=$this->form->field('longitude', array('name' => 'longitude', 'value' => $event->longitude)); ?>
     <?=$this->form->field('description', array('name' => 'description', 'value' => $event->description)); ?>
@@ -13,6 +13,6 @@ foreach($events as $event) :
     <?=$this->form->field('img_path', array('name' => 'img_path', 'value' => $event->img_path)); ?>
 
 
-    <?=$this->form->submit('Update', array('class' => 'btn','name' => 'update_event')); ?>
+    <?=$this->form->submit('Update', array('class' => 'btn','name' => 'update_user_input')); ?>
     <?=$this->form->end(); ?>
 <?php endforeach; ?>

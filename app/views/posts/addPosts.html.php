@@ -16,6 +16,8 @@
     <input name="title" type="text"/>
     <label for="author">Author</label>
     <input name="author" type="text"/>
+    <label for="tag">Tag</label>
+    <input name="tag" type="text"/>
     <label for="content">Content</label>
     <textarea name="content" type="text"> </textarea>
     <br/>

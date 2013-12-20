@@ -22,6 +22,7 @@ foreach($post as $thePost) :
     <?=$this->form->create(null, array('action' => null, 'enctype' => 'multipart/form-data')); ?>
     <?=$this->form->field('title', array('name' => 'title', 'value' => $thePost->title)); ?>
     <?=$this->form->field('author', array('name' => 'author', 'value' => $thePost->author)); ?>
+    <?=$this->form->field('tag', array('name' => 'tag', 'value' => $thePost->tag)); ?>
     <?=$this->form->label('content'); ?>
     <?=$this->form->textarea('content', array('name' => 'content', 'value' => $thePost->content));?>
     <br/>
