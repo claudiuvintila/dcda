@@ -3,11 +3,14 @@ require_once ('jpgraph/src/jpgraph.php');
 require_once ('jpgraph/src/jpgraph_line.php');
 
 $ip = $_GET["ip"];
+$isglobal = $_GET["isglobal"];
 $dateObject = new DateTime();//
 $timeStamp = $dateObject->getTimestamp();
 
-
-$link = mysqli_connect($ip, 'root', 'awppassword','dcda');
+if(!$isglobal)
+	$link = mysqli_connect($ip, 'root', 'awppassword','dcda');
+else
+	$link = mysqli_connect($ip, 'root', 'awppassword','global_mau');
 if (mysqli_connect_errno()) 
 	die('Could not connect: ' . mysql_error());
 
@@ -44,7 +47,7 @@ $theme_class=new UniversalTheme;
 
 $graph->SetTheme($theme_class);
 $graph->img->SetAntiAliasing(false);
-$graph->title->Set($ip);
+$graph->title->Set($isglobal?'GLOBAL':$ip);
 $graph->SetBox(false);
 
 $graph->img->SetAntiAliasing();

@@ -29,7 +29,19 @@ echo "</table>";
 */
 
 foreach ($servers as $server) {
-    if($server->is_server)
-	echo "<img src=\"img/mau_img.php?ip=".$server->ipv4."\">";
+    //if(!$server->is_server)
+    echo "<img src=\"img/mau_img.php?ip=".$server->ipv4."&isglobal=0"."\"><br>";
 }
+
+$link = mysqli_connect('localhost', 'root', 'awppassword','global_mau');
+if (mysqli_connect_errno()) 
+	die('Could not connect to localhost: ' . mysql_error());
+$query = 'SELECT global_ip FROM global_mau_ip';
+$result = mysqli_query($link,$query);
+$globalip='';
+while($row = mysqli_fetch_array($result)) {
+	$globalip=$row['global_ip'];	
+	break;
+}
+echo "<img src=\"img/mau_img.php?ip=".$globalip."&isglobal=1"."\"><br>";
 ?>
