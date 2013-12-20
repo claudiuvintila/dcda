@@ -120,7 +120,7 @@ class PostsController extends BaseController
         $username = Session::read('username');
 
         // check if we need to redirect the user to another server
-        $postData = $this->request->query;
+        $postData = $this->request->data;
         $tag = '';
 
         if(isset($postData['tag'])){
